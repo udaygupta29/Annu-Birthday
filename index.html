@@ -38,6 +38,92 @@
       background-size: 25px 25px;
     }
 
+    /* --- LOGIN PAGE STYLING --- */
+    #login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff3366 0%, #ff758c 50%, #ffb703 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
+
+    .login-card {
+      background: #ffffff;
+      padding: 40px 25px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(255, 51, 102, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 380px;
+      border: 3px dashed #ff3366;
+      position: relative;
+    }
+
+    .login-card::before {
+      content: '🎁';
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .login-card h2 {
+      color: #ff3366;
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+    }
+
+    .login-card p {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ffccd5;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s;
+      user-select: text;
+    }
+
+    .login-input:focus {
+      border-color: #ff3366;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #ff3366;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+    }
+
+    .login-btn:hover {
+      background-color: #d90429;
+      transform: translateY(-2px);
+    }
+
+    #main-content {
+      display: none; /* Login hone ke baad hi dikhega */
+    }
+
     /* --- PARATROOPER / FALLING CONFETTI & STARS --- */
     .party-element {
       position: fixed;
@@ -57,7 +143,6 @@
       }
     }
 
-    /* Random shapes & styling for magical birthday feel */
     .confetti-ribbon {
       width: 12px;
       height: 24px;
@@ -365,114 +450,153 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- --- DYNAMIC PARTY POPPER CONFETTI & BALLOONS --- -->
-  <!-- Falling Confetti Pieces -->
-  <div class="party-element confetti-ribbon" style="left: 5%; animation-duration: 5s; animation-delay: 0.2s; background-color: #ff3366;"></div>
-  <div class="party-element confetti-dot" style="left: 15%; animation-duration: 7s; animation-delay: 1s; background-color: #ffb703;"></div>
-  <div class="party-element confetti-star" style="left: 25%; animation-duration: 6s; animation-delay: 0.5s;">✨</div>
-  <div class="party-element confetti-ribbon" style="left: 35%; animation-duration: 8s; animation-delay: 1.5s; background-color: #3a86ff;"></div>
-  <div class="party-element confetti-dot" style="left: 45%; animation-duration: 5.5s; animation-delay: 0.8s; background-color: #fb8500;"></div>
-  <div class="party-element confetti-star" style="left: 55%; animation-duration: 7.5s; animation-delay: 0.1s;">🎉</div>
-  <div class="party-element confetti-ribbon" style="left: 65%; animation-duration: 6.2s; animation-delay: 1.2s; background-color: #8338ec;"></div>
-  <div class="party-element confetti-dot" style="left: 75%; animation-duration: 8.5s; animation-delay: 0.4s; background-color: #38b000; width:12px; height:12px;"></div>
-  <div class="party-element confetti-star" style="left: 85%; animation-duration: 5.8s; animation-delay: 1.8s;">💖</div>
-  <div class="party-element confetti-ribbon" style="left: 93%; animation-duration: 7.1s; animation-delay: 0.7s; background-color: #ff006e;"></div>
-
-  <!-- Background Floating Balloons -->
-  <div class="floating-balloon" style="left: 8%; background-color: #ff3366; animation-delay: 0s; animation-duration: 9s;"></div>
-  <div class="floating-balloon" style="left: 22%; background-color: #ffb703; animation-delay: 2s; animation-duration: 11s;"></div>
-  <div class="floating-balloon" style="left: 78%; background-color: #3a86ff; animation-delay: 1s; animation-duration: 10s;"></div>
-  <div class="floating-balloon" style="left: 90%; background-color: #fb5607; animation-delay: 3s; animation-duration: 12s;"></div>
-
-  <header>
-    <h1>Happy Birthday Annu ! 🎂✨</h1>
-  </header>
-
-  <audio id="bg-music" loop preload="auto">
-    <source src="song.mp3" type="audio/mpeg">
-  </audio>
-
-  <div class="music-widget" id="music-btn" onclick="toggleAudio()" title="Play/Pause Music"></div>
-
-  <!-- Timeline Section (32 Cards) -->
-  <div class="timeline">
-    <!-- Card 1 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image1.jpg" data-video="video1.mp4"></div></div></div>
-    <!-- Card 2 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image2.jpg" data-video="video2.mp4"></div></div></div>
-    <!-- Card 3 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image3.jpg" data-video="video3.mp4"></div></div></div>
-    <!-- Card 4 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image4.jpg" data-video="video4.mp4"></div></div></div>
-    <!-- Card 5 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image5.jpg" data-video="video5.mp4"></div></div></div>
-    <!-- Card 6 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image6.jpg" data-video="video6.mp4"></div></div></div>
-    <!-- Card 7 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image7.jpg" data-video="video7.mp4"></div></div></div>
-    <!-- Card 8 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image8.jpg" data-video="video8.mp4"></div></div></div>
-    <!-- Card 9 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image9.jpg" data-video="video9.mp4"></div></div></div>
-    <!-- Card 10 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image10.jpg" data-video="video10.mp4"></div></div></div>
-    <!-- Card 11 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image11.jpg" data-video="video11.mp4"></div></div></div>
-    <!-- Card 12 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image12.jpg" data-video="video12.mp4"></div></div></div>
-    <!-- Card 13 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image13.jpg" data-video="video13.mp4"></div></div></div>
-    <!-- Card 14 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image14.jpg" data-video="video14.mp4"></div></div></div>
-    <!-- Card 15 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image15.jpg" data-video="video15.mp4"></div></div></div>
-    <!-- Card 16 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image16.jpg" data-video="video16.mp4"></div></div></div>
-    <!-- Card 17 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image17.jpg" data-video="video17.mp4"></div></div></div>
-    <!-- Card 18 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image18.jpg" data-video="video18.mp4"></div></div></div>
-    <!-- Card 19 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image19.jpg" data-video="video19.mp4"></div></div></div>
-    <!-- Card 20 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image20.jpg" data-video="video20.mp4"></div></div></div>
-    <!-- Card 21 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image21.jpg" data-video="video21.mp4"></div></div></div>
-    <!-- Card 22 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image22.jpg" data-video="video22.mp4"></div></div></div>
-    <!-- Card 23 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image23.jpg" data-video="video23.mp4"></div></div></div>
-    <!-- Card 24 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image24.jpg" data-video="video24.mp4"></div></div></div>
-    <!-- Card 25 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image25.jpg" data-video="video25.mp4"></div></div></div>
-    <!-- Card 26 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image26.jpg" data-video="video26.mp4"></div></div></div>
-    <!-- Card 27 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image27.jpg" data-video="video27.mp4"></div></div></div>
-    <!-- Card 28 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image28.jpg" data-video="video28.mp4"></div></div></div>
-    <!-- Card 29 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image29.jpg" data-video="video29.mp4"></div></div></div>
-    <!-- Card 30 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image30.jpg" data-video="video30.mp4"></div></div></div>
-    <!-- Card 31 -->
-    <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image31.jpg" data-video="video31.mp4"></div></div></div>
-    <!-- Card 32 -->
-    <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image32.jpg" data-video="video32.mp4"></div></div></div>
+  <!-- Login Overlay -->
+  <div id="login-overlay">
+    <div class="login-card">
+      <h2>Enter Password for Surprise </h2>
+      <input type="password" id="password-input" class="login-input" placeholder="Password Daalo..." />
+      <button class="login-btn" onclick="checkPassword()">Unlock 🎉</button>
+    </div>
   </div>
 
-  <footer>
-    <p>Made with 💖 and lots of love for someone extra special! 🎉</p>
-  </footer>
+  <!-- --- MAIN WEBSITE CONTENT --- -->
+  <div id="main-content">
+    <!-- --- DYNAMIC PARTY POPPER CONFETTI & BALLOONS --- -->
+    <div class="party-element confetti-ribbon" style="left: 5%; animation-duration: 5s; animation-delay: 0.2s; background-color: #ff3366;"></div>
+    <div class="party-element confetti-dot" style="left: 15%; animation-duration: 7s; animation-delay: 1s; background-color: #ffb703;"></div>
+    <div class="party-element confetti-star" style="left: 25%; animation-duration: 6s; animation-delay: 0.5s;">✨</div>
+    <div class="party-element confetti-ribbon" style="left: 35%; animation-duration: 8s; animation-delay: 1.5s; background-color: #3a86ff;"></div>
+    <div class="party-element confetti-dot" style="left: 45%; animation-duration: 5.5s; animation-delay: 0.8s; background-color: #fb8500;"></div>
+    <div class="party-element confetti-star" style="left: 55%; animation-duration: 7.5s; animation-delay: 0.1s;">🎉</div>
+    <div class="party-element confetti-ribbon" style="left: 65%; animation-duration: 6.2s; animation-delay: 1.2s; background-color: #8338ec;"></div>
+    <div class="party-element confetti-dot" style="left: 75%; animation-duration: 8.5s; animation-delay: 0.4s; background-color: #38b000; width:12px; height:12px;"></div>
+    <div class="party-element confetti-star" style="left: 85%; animation-duration: 5.8s; animation-delay: 1.8s;">💖</div>
+    <div class="party-element confetti-ribbon" style="left: 93%; animation-duration: 7.1s; animation-delay: 0.7s; background-color: #ff006e;"></div>
 
-  <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
-    <img id="lightbox-img" src="" alt="Full Screen Memory" style="display:none;">
-    <video id="lightbox-video" src="" controls controlsList="nodownload" style="display:none;"></video>
+    <!-- Background Floating Balloons -->
+    <div class="floating-balloon" style="left: 8%; background-color: #ff3366; animation-delay: 0s; animation-duration: 9s;"></div>
+    <div class="floating-balloon" style="left: 22%; background-color: #ffb703; animation-delay: 2s; animation-duration: 11s;"></div>
+    <div class="floating-balloon" style="left: 78%; background-color: #3a86ff; animation-delay: 1s; animation-duration: 10s;"></div>
+    <div class="floating-balloon" style="left: 90%; background-color: #fb5607; animation-delay: 3s; animation-duration: 12s;"></div>
+
+    <header>
+      <h1>Happy Birthday Annu ! 🎂✨</h1>
+    </header>
+
+    <audio id="bg-music" loop preload="auto">
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-widget" id="music-btn" onclick="toggleAudio()" title="Play/Pause Music"></div>
+
+    <!-- Timeline Section (32 Cards) -->
+    <div class="timeline">
+      <!-- Card 1 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image1.jpg" data-video="video1.mp4"></div></div></div>
+      <!-- Card 2 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image2.jpg" data-video="video2.mp4"></div></div></div>
+      <!-- Card 3 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image3.jpg" data-video="video3.mp4"></div></div></div>
+      <!-- Card 4 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image4.jpg" data-video="video4.mp4"></div></div></div>
+      <!-- Card 5 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image5.jpg" data-video="video5.mp4"></div></div></div>
+      <!-- Card 6 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image6.jpg" data-video="video6.mp4"></div></div></div>
+      <!-- Card 7 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image7.jpg" data-video="video7.mp4"></div></div></div>
+      <!-- Card 8 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image8.jpg" data-video="video8.mp4"></div></div></div>
+      <!-- Card 9 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image9.jpg" data-video="video9.mp4"></div></div></div>
+      <!-- Card 10 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image10.jpg" data-video="video10.mp4"></div></div></div>
+      <!-- Card 11 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image11.jpg" data-video="video11.mp4"></div></div></div>
+      <!-- Card 12 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image12.jpg" data-video="video12.mp4"></div></div></div>
+      <!-- Card 13 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image13.jpg" data-video="video13.mp4"></div></div></div>
+      <!-- Card 14 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image14.jpg" data-video="video14.mp4"></div></div></div>
+      <!-- Card 15 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image15.jpg" data-video="video15.mp4"></div></div></div>
+      <!-- Card 16 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image16.jpg" data-video="video16.mp4"></div></div></div>
+      <!-- Card 17 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image17.jpg" data-video="video17.mp4"></div></div></div>
+      <!-- Card 18 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image18.jpg" data-video="video18.mp4"></div></div></div>
+      <!-- Card 19 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image19.jpg" data-video="video19.mp4"></div></div></div>
+      <!-- Card 20 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image20.jpg" data-video="video20.mp4"></div></div></div>
+      <!-- Card 21 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image21.jpg" data-video="video21.mp4"></div></div></div>
+      <!-- Card 22 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image22.jpg" data-video="video22.mp4"></div></div></div>
+      <!-- Card 23 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image23.jpg" data-video="video23.mp4"></div></div></div>
+      <!-- Card 24 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image24.jpg" data-video="video24.mp4"></div></div></div>
+      <!-- Card 25 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image25.jpg" data-video="video25.mp4"></div></div></div>
+      <!-- Card 26 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image26.jpg" data-video="video26.mp4"></div></div></div>
+      <!-- Card 27 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image27.jpg" data-video="video27.mp4"></div></div></div>
+      <!-- Card 28 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image28.jpg" data-video="video28.mp4"></div></div></div>
+      <!-- Card 29 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image29.jpg" data-video="video29.mp4"></div></div></div>
+      <!-- Card 30 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image30.jpg" data-video="video30.mp4"></div></div></div>
+      <!-- Card 31 -->
+      <div class="timeline-item left"><div class="card"><div class="media-container" data-img="image31.jpg" data-video="video31.mp4"></div></div></div>
+      <!-- Card 32 -->
+      <div class="timeline-item right"><div class="card"><div class="media-container" data-img="image32.jpg" data-video="video32.mp4"></div></div></div>
+    </div>
+
+    <footer>
+      <p>Made with 💖 and lots of love for someone extra special! 🎉</p>
+    </footer>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+      <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+      <img id="lightbox-img" src="" alt="Full Screen Memory" style="display:none;">
+      <video id="lightbox-video" src="" controls controlsList="nodownload" style="display:none;"></video>
+    </div>
   </div>
 
   <script>
+    // Password Check Logic
+    function checkPassword() {
+      const inputVal = document.getElementById('password-input').value;
+      const overlay = document.getElementById('login-overlay');
+      const mainContent = document.getElementById('main-content');
+
+      if (inputVal === "Annu") {
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          mainContent.style.display = 'block';
+          // Unlock hote hi automatic music play ho jayega (User interaction ki wajah se)
+          tryPlayAudio();
+        }, 500);
+      } else {
+        // Galat password par background solid theme colour ka ho jayega
+        overlay.innerHTML = "";
+        overlay.style.background = "#ff3366";
+      }
+    }
+
+    // Enter key dabane par bhi login ho jaye
+    document.getElementById('password-input').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
     document.addEventListener('keydown', function(e) {
       if (
         e.key === 'F12' ||
@@ -491,24 +615,11 @@
     const audio = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
 
-    function playAudioOnFirstInteraction() {
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicBtn.classList.remove('paused');
-        }).catch(err => console.log("Waiting for user interaction..."));
-      }
-      document.removeEventListener('click', playAudioOnFirstInteraction);
-      document.removeEventListener('touchstart', playAudioOnFirstInteraction);
-    }
-
-    document.addEventListener('click', playAudioOnFirstInteraction);
-    document.addEventListener('touchstart', playAudioOnFirstInteraction);
-
-    window.addEventListener('DOMContentLoaded', () => {
+    function tryPlayAudio() {
       audio.play().then(() => {
         musicBtn.classList.remove('paused');
       }).catch(() => {});
-    });
+    }
 
     function toggleAudio() {
       if (audio.paused) {
